@@ -8,4 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="HuaQiangWeather" parent="AppTheme"></style>
+
 </resources>

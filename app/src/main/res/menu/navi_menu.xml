@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <item android:title="作者信息："/>
 
+    <group
+        android:id="@+id/fristgroup"
+        android:checkableBehavior="none">
 
+        <item android:title="V1.0"
+              android:checkable="false"
+              android:icon="@mipmap/vsion"/>
+
+        <item android:title="Wanghuaqiang1993@163.com"
+            android:checkable="false"
+            android:icon="@mipmap/email"/>
+
+        <item android:title="github.com/whq521sbd/HuaQiangWeather.git"
+            android:checkable="false"
+            android:icon="@mipmap/url"/>
     </group>
+
+
+   <group  android:id="@+id/souendgroup"
+       android:checkableBehavior="none">
+       <item
+           android:title="              最美天气，"
+           android:checkable="false" />
+
+       <item android:title="                                   因为有你。"
+           android:checkable="false" />
+   </group>
 
 </menu>

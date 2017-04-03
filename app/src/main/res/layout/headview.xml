@@ -1,15 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="192dp">
 <ImageView
-    android:src="@drawable/weather"
+    android:src="@drawable/headview"
     android:scaleType="centerCrop"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 <View
+    android:visibility="gone"
     android:background="#8000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="3dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/address"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_above="@+id/address"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:text="当前位置："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+
+            android:id="@+id/tv_nowLoacation"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_changeCity"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"
+            android:text="切换城市"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
