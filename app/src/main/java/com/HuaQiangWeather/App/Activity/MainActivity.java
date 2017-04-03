@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -73,10 +74,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                            tv_nowLoacation.setText(aMapLocation.getCity()+aMapLocation.getDistrict());
                            address.setText(aMapLocation.getAddress());
                            if (!TextUtils.isEmpty(city)){
-                              // qryWeather(city);
+                                   qryWeather(city);
                                if (wxapiBean==null){
                                    qryWxapi();
-                                   mLocationClient.stopLocation();//停止定位
+
                                }else {
                                    recyAdapter.notifyDataSetChanged();
                                }
@@ -203,7 +204,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
 
         //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
-        mLocationOption.setInterval(1000*10*6);
+        //mLocationOption.setInterval(1000*10*6);
+
+        mLocationOption.setOnceLocation(true);
+
+//获取最近3s内精度最高的一次定位结果：
+//设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
 
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
@@ -306,7 +313,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             String [] adress = s.split(" ");
             if (adress.length>0){
                 String city = adress[1];
-               // qryWeather(city);
+                qryWeather(city);
                 qryWxapi();
             }
         }
@@ -323,8 +330,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     if (wxapiBean.getError_code()==0){
                        ArrayList<WxapiBean.ResultBean.ListBean> beandatas = (ArrayList<WxapiBean.ResultBean.ListBean>) wxapiBean.getResult().getList();
                         recyAdapter  = new RecyAdapter(beandatas);
-                        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
-                        manager.setOrientation(LinearLayoutManager.VERTICAL);
+                        GridLayoutManager manager = new GridLayoutManager(MainActivity.this,2);
                         rv_RecyclerView.setLayoutManager(manager);
                         rv_RecyclerView.setAdapter(recyAdapter);
                     }else Toast.makeText(MainActivity.this, wxapiBean.getReason(), Toast.LENGTH_SHORT).show();

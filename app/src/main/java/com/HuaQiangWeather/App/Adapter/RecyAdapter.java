@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.HuaQiangWeather.App.Activity.WxWeb;
 import com.HuaQiangWeather.App.Entity.WxapiBean;
 import com.HuaQiangWeather.App.R;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -42,24 +44,32 @@ public class RecyAdapter extends RecyclerView.Adapter<RecyAdapter.MyHolder> {
 
         TextView tv_tile;
         View item;
+        ImageView iv_newsFristImg;
 
         public MyHolder(View itemView) {
             super(itemView);
             item = itemView;
             tv_tile = (TextView) itemView.findViewById(R.id.tv_tile);
+            iv_newsFristImg = (ImageView) itemView.findViewById(R.id.iv_newsFristImg);
         }
 
     }
 
     @Override
     public void onBindViewHolder(final MyHolder holder, int position) {
+        if (!mlists.isEmpty()){
+
         holder.tv_tile.setText(mlists.get(position).getTitle());
+
+        Glide.with(mContext).load(mlists.get(position).getFirstImg()).into(holder.iv_newsFristImg);
+
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos =holder.getAdapterPosition();
                 WxWeb.startAction(mContext,mlists.get(pos).getTitle(),mlists.get(pos).getSource(),mlists.get(pos).getUrl(),mlists.get(pos).getFirstImg());
-            }
-        });
+                }
+            });
+        }
     }
 }

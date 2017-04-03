@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class WxWeb extends AppCompatActivity {
     private TextView tv_newsTitle,tv_newsSource;
     private WebView wv_webview;
     private Toolbar tb_toolbar;
+    private FloatingActionButton fab_collect;
 
     private String newstitle;
     private String newsSource;
@@ -80,6 +83,18 @@ public class WxWeb extends AppCompatActivity {
         tv_newsTitle.setText(newstitle);
         tv_newsSource.setText("来自："+newsSource);
         wv_webview.loadUrl(newsUrl);
+        fab_collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v,"已收藏！",Snackbar.LENGTH_LONG)
+                        .setAction("返回", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        }).show();
+            }
+        });
     }
 
     private void initView() {
@@ -90,6 +105,7 @@ public class WxWeb extends AppCompatActivity {
         tv_newsSource = (TextView) findViewById(R.id.tv_newsSource);
         wv_webview = (WebView) findViewById(R.id.wv_webview);
         wv_webview.setWebViewClient(new WebViewClient());
+        wv_webview.getSettings().setJavaScriptEnabled(true);
         tb_toolbar = (Toolbar) findViewById(R.id.tb_toolbar);
         setSupportActionBar(tb_toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -97,5 +113,6 @@ public class WxWeb extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         ctb_CollapsingToolbarLayout.setTitle("微信精选");
+        fab_collect = (FloatingActionButton) findViewById(R.id.fab_collect);
     }
 }
